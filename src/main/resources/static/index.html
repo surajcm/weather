@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        body {
+            margin: 0;
+            font-size: .9rem;
+            font-weight: 400;
+            line-height: 1.6;
+            color: #212529;
+            background-color: #f5f8fa;
+            height:100%; margin:0;padding:0
+        }
+        .login-form {
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Current Weather Condition</title>
+</head>
+<body>
+<main class="login-form">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card text-center">
+                    <div class="card-header">Current Weather Condition</div>
+                    <div class="card-body">
+                        <form action="" method="">
+                            <div class="form-group row">
+                                <label for="location" class="col-md-4 col-form-label text-md-right">Enter Location...</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="location" class="form-control" name="location" required autofocus>
+                                </div>
+                                <div class="col-md-2"> 
+                                    <div class="custom-control custom-switch">
+                                      <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                      <label class="custom-control-label" for="customSwitch1">Auto-refresh</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-2">
+                                    <i class="fa fa-sun-o" style="font-size:48px"></i>
+                                </div>
+                                
+                                <div class="col-md-2">
+                                    <i class="fa fa-umbrella" style="font-size:48px"></i>
+                                </div>
+                                <div class="col-md-2">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="temp" class="col-md-4 col-form-label text-md-right">Temperature</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="text" class="form-control" name="temp" required>
+                                </div>
+                                <div class="col-md-2">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="k1" class="col-md-4 col-form-label text-md-right">Key 1</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="k1" class="form-control" name="k1" required>
+                                </div>
+                                <div class="col-md-2">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="k2" class="col-md-4 col-form-label text-md-right">Key 2</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="k2" class="form-control" name="k2" required>
+                                </div>
+                                <div class="col-md-2">
+                                </div>
+                            </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</main>
+
+</body>
+</html>
