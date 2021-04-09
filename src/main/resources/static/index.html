@@ -19,9 +19,10 @@
             padding-bottom: 1.5rem;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
@@ -38,9 +39,9 @@
                     <div class="card-body">
                         <form action="" method="">
                             <div class="form-group row">
-                                <label for="location" class="col-md-4 col-form-label text-md-right">Enter Location...</label>
+                                <label for="loc" class="col-md-4 col-form-label text-md-right">Enter Location...</label>
                                 <div class="col-md-4">
-                                    <input type="text" id="location" class="form-control" name="location" required autofocus>
+                                    <input type="text" id="loc" class="form-control" name="loc" required autofocus>
                                 </div>
                                 <div class="col-md-2"> 
                                     <div class="custom-control custom-switch">
@@ -50,7 +51,7 @@
                                 </div>
                             </div>
                             <hr />
-
+                            <div id="feedback"></div>
                             <div class="form-group row">
                                 <div class="col-md-4">
                                 </div>
@@ -95,6 +96,49 @@
         </div>
     </div>
     </div>
+    <script type="text/javascript">
+         $('#loc').keyup(function(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13'){
+                alert('You pressed a "enter" key in textbox');  
+                fire_ajax_submit();
+            }
+        });
+
+         function fire_ajax_submit() {
+            var loc = "Chicago";
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/api/weather",
+                data: JSON.stringify(loc),
+                dataType: 'json',
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+
+                    var json = "<h4>Ajax Response</h4>&lt;pre&gt;"
+                        + JSON.stringify(data, null, 4) + "&lt;/pre&gt;";
+                    $('#feedback').html(json);
+
+                    console.log("SUCCESS : ", data);
+                    
+
+                },
+                error: function (e) {
+
+                    var json = "<h4>Ajax Response</h4>&lt;pre&gt;"
+                        + e.responseText + "&lt;/pre&gt;";
+                    $('#feedback').html(json);
+
+                    console.log("ERROR : ", e);
+                    
+
+                }
+            });
+
+        }
+    </script>     
 
 </main>
 
