@@ -68,23 +68,23 @@
                             <div class="form-group row">
                                 <label for="temp" class="col-md-4 col-form-label text-md-right">Temperature</label>
                                 <div class="col-md-4">
-                                    <input type="text" id="text" class="form-control" name="temp" required>
+                                    <input type="text" id="temp" class="form-control" name="temp" readonly="true">
                                 </div>
                                 <div class="col-md-2">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="k1" class="col-md-4 col-form-label text-md-right">Key 1</label>
+                                <label for="lat" class="col-md-4 col-form-label text-md-right">Latitude</label>
                                 <div class="col-md-4">
-                                    <input type="text" id="k1" class="form-control" name="k1" required>
+                                    <input type="text" id="lat" class="form-control" name="lat" readonly="true">
                                 </div>
                                 <div class="col-md-2">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="k2" class="col-md-4 col-form-label text-md-right">Key 2</label>
+                                <label for="lon" class="col-md-4 col-form-label text-md-right">Longitude</label>
                                 <div class="col-md-4">
-                                    <input type="text" id="k2" class="form-control" name="k2" required>
+                                    <input type="text" id="lon" class="form-control" name="lon" readonly="true">
                                 </div>
                                 <div class="col-md-2">
                                 </div>
@@ -97,43 +97,38 @@
     </div>
     </div>
     <script type="text/javascript">
-         $('#loc').keyup(function(event){
+        $('#loc').keyup(function(event){
             var keycode = (event.keyCode ? event.keyCode : event.which);
             if(keycode == '13'){
-                alert('You pressed a "enter" key in textbox');  
-                fire_ajax_submit();
+                //alert('You pressed a "enter" key in textbox');  
+                ajax_submit();
             }
         });
 
-         function fire_ajax_submit() {
-            var loc = "Chicago";
+         function ajax_submit() {
+            var loc = document.getElementById('loc').value;
             $.ajax({
-                type: "POST",
+                type: "GET",
                 contentType: "application/json",
                 url: "/api/weather",
-                data: JSON.stringify(loc),
-                dataType: 'json',
+                data: { 
+                    loc: loc
+                },
                 cache: false,
                 timeout: 600000,
                 success: function (data) {
-
-                    var json = "<h4>Ajax Response</h4>&lt;pre&gt;"
-                        + JSON.stringify(data, null, 4) + "&lt;/pre&gt;";
-                    $('#feedback').html(json);
-
+                    var obj = JSON.parse(data);
+                    document.getElementById('loc').value = obj.request.query;
+                    document.getElementById('temp').value = obj.current.temperature;
+                    document.getElementById('lat').value = obj.location.lat;
+                    document.getElementById('lon').value = obj.location.lon;
                     console.log("SUCCESS : ", data);
-                    
-
                 },
-                error: function (e) {
-
-                    var json = "<h4>Ajax Response</h4>&lt;pre&gt;"
-                        + e.responseText + "&lt;/pre&gt;";
+                error: function(xhr, status, error) {
+                    var json = "<div class='alert alert-danger' role='alert'>" + xhr.responseJSON.message +" </div>";
                     $('#feedback').html(json);
 
-                    console.log("ERROR : ", e);
-                    
-
+                    console.log("ERROR : ", xhr);
                 }
             });
 

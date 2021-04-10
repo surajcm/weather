@@ -8,3 +8,18 @@
 <p align="center">
 A basic weather display board based on spring-boot.
 </p>
+
+##### Initial Setup
+Set the environment variables: 
+JAVA_HOME & ACCESS_KEY
+
+##### Build command :
+`./gradlew clean idea`
+
+##### To Run the application :
+`./gradlew clean bootRun`
+
+#### UI
+Please check at http://localhost:8080/
+
+![screenshot](https://github.com/surajcm/weather/blob/main/dev/weather_screen.png?raw=true)
