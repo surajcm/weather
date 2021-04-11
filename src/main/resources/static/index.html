@@ -55,14 +55,9 @@
                             <div class="form-group row">
                                 <div class="col-md-4">
                                 </div>
-                                <div class="col-md-2">
-                                    <i class="fa fa-sun-o" style="font-size:48px"></i>
-                                </div>
-                                
-                                <div class="col-md-2">
-                                    <i class="fa fa-umbrella" style="font-size:48px"></i>
-                                </div>
-                                <div class="col-md-2">
+                                <div class="col-md-6">
+                                    <i id="sun" class="fa fa-sun-o" style="font-size:48px"></i>
+                                    <i id="umb" class="fa fa-umbrella" style="font-size:48px"></i>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -118,16 +113,30 @@
                 timeout: 600000,
                 success: function (data) {
                     var obj = JSON.parse(data);
-                    document.getElementById('loc').value = obj.request.query;
+                    document.getElementById('loc').value = obj.location.name;
                     document.getElementById('temp').value = obj.current.temperature;
                     document.getElementById('lat').value = obj.location.lat;
                     document.getElementById('lon').value = obj.location.lon;
+                    var sun = document.getElementById("sun");
+                    var umb = document.getElementById("umb");
+                    umb.style.display = "none";
+                    sun.style.display = "none";
+                    $('#feedback').html("");
+                    var img = document.createElement("img");
+                    img.src = obj.current.weather_icons[0];
+                    document.getElementById('feedback').appendChild(img);
                     console.log("SUCCESS : ", data);
                 },
                 error: function(xhr, status, error) {
                     var json = "<div class='alert alert-danger' role='alert'>" + xhr.responseJSON.message +" </div>";
                     $('#feedback').html(json);
-
+                    var sun = document.getElementById("sun");
+                    var umb = document.getElementById("umb");
+                    umb.style.display = "block";
+                    sun.style.display = "block";
+                    document.getElementById('temp').value = "";
+                    document.getElementById('lat').value = "";
+                    document.getElementById('lon').value = "";
                     console.log("ERROR : ", xhr);
                 }
             });
