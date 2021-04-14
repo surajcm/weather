@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
 @RestController
@@ -44,18 +45,21 @@ public class WeatherController {
             throw new WeatherException("Configuration error occurred !!");
         }
         String responseBody = "";
-        String url = "http://api.weatherstack.com/current?" +
-                "access_key=" + access_key +
-                "&query=" + location;
-        final HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .uri(URI.create(url))
-                .build();
+
         try {
+            String url = "http://api.weatherstack.com/current?" +
+                    "access_key=" + access_key +
+                    "&query=" + URLEncoder.encode(location, StandardCharsets.UTF_8);
+            logger.info("Inside encoded loc :" +
+                    URLEncoder.encode(location, StandardCharsets.UTF_8));
+            final HttpRequest request = HttpRequest.newBuilder()
+                    .GET()
+                    .uri(URI.create(url))
+                    .build();
             final HttpResponse<String> response = HTTP_CLIENT
                     .send(request, HttpResponse.BodyHandlers.ofString());
             responseBody = response.body();
-        } catch (IOException | InterruptedException e) {
+        } catch (Exception e) {
             logger.error(e.getMessage());
             throw new WeatherException("Connection timed out !!");
         }

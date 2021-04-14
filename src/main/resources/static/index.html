@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="col-md-2"> 
                                     <div class="custom-control custom-switch">
-                                      <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                      <input type="checkbox" onclick="toggleAutoRefresh(this);" class="custom-control-input" id="customSwitch1">
                                       <label class="custom-control-label" for="customSwitch1">Auto-refresh</label>
                                     </div>
                                 </div>
@@ -132,8 +132,8 @@
                     $('#feedback').html(json);
                     var sun = document.getElementById("sun");
                     var umb = document.getElementById("umb");
-                    umb.style.display = "block";
-                    sun.style.display = "block";
+                    //umb.style.display = "block";
+                    //sun.style.display = "block";
                     document.getElementById('temp').value = "";
                     document.getElementById('lat').value = "";
                     document.getElementById('lon').value = "";
@@ -141,6 +141,17 @@
                 }
             });
 
+        }
+        
+        var reloading;
+        function toggleAutoRefresh(cb) {
+            if (cb.checked) {
+                console.log("Auto refreshing.....");
+                reloading = setInterval(ajax_submit, 5000);
+            } else {
+                console.log("No refreshing.....")
+                clearInterval(reloading);
+            }
         }
     </script>     
 
